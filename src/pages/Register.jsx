@@ -13,7 +13,7 @@ const Register = () => {
     confirmPassword: "",
   });
 
-//   const navigate = useNavigate();
+  //   const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -28,7 +28,7 @@ const Register = () => {
   };
 
   return (
-    <div className="signup-page">
+    <div className=" w-[500px] bg-gray-200 shadow-2xl rounded-xl flex justify-center items-center">
       <h2>Signup</h2>
       <form onSubmit={handleSignup}>
         <input
