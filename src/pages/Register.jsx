@@ -1,5 +1,5 @@
 import { useState } from "react";
-// import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -13,8 +13,6 @@ const Register = () => {
     confirmPassword: "",
   });
 
-  //   const navigate = useNavigate();
-
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -25,77 +23,77 @@ const Register = () => {
       alert("Passwords do not match!");
       return;
     }
+    console.log("User Registered:", formData);
+    setFormData({
+      username: "",
+      policeStation: "",
+      mobile: "",
+      email: "",
+      designation: "",
+      role: "",
+      password: "",
+      confirmPassword: "",
+    });
   };
 
   return (
-    <div className=" w-[500px] bg-gray-200 shadow-2xl rounded-xl flex justify-center items-center">
-      <h2>Signup</h2>
-      <form onSubmit={handleSignup}>
-        <input
-          type="text"
-          name="username"
-          placeholder="Username"
-          value={formData.username}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="text"
-          name="policeStation"
-          placeholder="Police Station"
-          value={formData.policeStation}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="text"
-          name="mobile"
-          placeholder="Mobile"
-          value={formData.mobile}
-          onChange={handleChange}
-        />
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="text"
-          name="designation"
-          placeholder="Designation"
-          value={formData.designation}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="text"
-          name="role"
-          placeholder="Role"
-          value={formData.role}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={formData.password}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="password"
-          name="confirmPassword"
-          placeholder="Confirm Password"
-          value={formData.confirmPassword}
-          onChange={handleChange}
-          required
-        />
-        <button type="submit">Signup</button>
-      </form>
+    <div className=" flex justify-center  items-center bg-gray-100">
+      <div className="  bg-white shadow-lg rounded-xl p-6  max-w-md">
+        <h2 className="text-center font-bold text-2xl mb-5 text-blue-700">
+          Signup
+        </h2>
+        <form onSubmit={handleSignup} className="  flex flex-col">
+          {[
+            { label: "Username", name: "username", type: "text" },
+            { label: "Police Station", name: "policeStation", type: "text" },
+            { label: "Mobile", name: "mobile", type: "text" },
+            { label: "Email", name: "email", type: "email" },
+            { label: "Designation", name: "designation", type: "text" },
+            { label: "Role", name: "role", type: "text" },
+            { label: "Password", name: "password", type: "password" },
+            {
+              label: "Confirm Password",
+              name: "confirmPassword",
+              type: "password",
+            },
+          ].map((field, index) => (
+            <div key={index} className="mb-2 flex gap-2">
+              <label
+                htmlFor={field.name}
+                className="block w-28 text-gray-700 font-medium mb-1"
+              >
+                {field.label}:
+              </label>
+              <input
+                type={field.type}
+                name={field.name}
+                placeholder={field.label}
+                value={formData[field.name]}
+                onChange={handleChange}
+                required
+                className="w-[400px] px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 outline-none"
+              />
+            </div>
+          ))}
+
+          <button
+            type="submit"
+            className="w-full bg-blue-700 text-white font-bold py-2 rounded-lg hover:bg-blue-600 transition-all"
+          >
+            Signup
+          </button>
+        </form>
+        <div className="text-center mt-4">
+          <p className="text-gray-600">
+            Already have an account?{" "}
+            <Link to={"/login"}>
+              <button className="text-blue-700 font-semibold hover:underline">
+                Login
+              </button>
+            </Link>
+          </p>
+        </div>
+      </div>
     </div>
   );
 };
