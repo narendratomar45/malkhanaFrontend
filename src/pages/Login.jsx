@@ -1,11 +1,17 @@
+import axios from "axios";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { addUser } from "../utils/userSlice";
 
 const Login = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+  const dispath = useDispatch();
+  const users = useSelector((store) => store.user);
+  console.log("USERS", users);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -13,7 +19,13 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    console.log("LOGINDATA", formData);
+    const response = await axios.post(
+      "http://localhost:7000/auth/login",
+      { email: formData.email, password: formData.password },
+      { withCredentials: true }
+    );
+    dispath(addUser(response.data));
+    console.log("LOGINDATA", response.data);
     setFormData({ email: "", password: "" });
   };
 

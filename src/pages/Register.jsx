@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -19,21 +20,34 @@ const Register = () => {
 
   const handleSignup = async (e) => {
     e.preventDefault();
+
     if (formData.password !== formData.confirmPassword) {
       alert("Passwords do not match!");
       return;
     }
-    console.log("User Registered:", formData);
-    setFormData({
-      username: "",
-      policeStation: "",
-      mobile: "",
-      email: "",
-      designation: "",
-      role: "",
-      password: "",
-      confirmPassword: "",
-    });
+
+    try {
+      const response = await axios.post(
+        "http://localhost:7000/auth/register",
+        formData,
+        { withCredentials: true }
+      );
+      const data = response.data;
+      console.log("SIGNUPDATA", data.user);
+
+      setFormData({
+        username: "",
+        policeStation: "",
+        mobile: "",
+        email: "",
+        designation: "",
+        role: "",
+        password: "",
+        confirmPassword: "",
+      });
+    } catch (error) {
+      console.error("Signup Error:", error);
+    }
   };
 
   return (
