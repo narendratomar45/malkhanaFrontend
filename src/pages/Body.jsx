@@ -7,8 +7,10 @@ const Body = () => {
   return (
     <div>
       <Navbar />
-      <Sidebar />
-      <Outlet />
+      <div className="flex">
+        <Sidebar />
+        <Outlet />
+      </div>
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { addUser } from "../utils/userSlice";
 
 const Login = () => {
@@ -12,6 +12,7 @@ const Login = () => {
   const dispath = useDispatch();
   const users = useSelector((store) => store.user);
   console.log("USERS", users);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -25,6 +26,7 @@ const Login = () => {
       { withCredentials: true }
     );
     dispath(addUser(response.data));
+    navigate("/body");
     console.log("LOGINDATA", response.data);
     setFormData({ email: "", password: "" });
   };

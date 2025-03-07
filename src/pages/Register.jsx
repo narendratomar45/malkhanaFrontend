@@ -51,12 +51,12 @@ const Register = () => {
   };
 
   return (
-    <div className=" flex justify-center  items-center bg-gray-100">
-      <div className="  bg-white shadow-lg rounded-xl p-6  max-w-md">
+    <div className="w-full flex justify-center  items-center bg-white">
+      <div className=" w-[550px] text-center bg-gray-100 shadow-lg rounded-xl p-6  ">
         <h2 className="text-center font-bold text-2xl mb-5 text-blue-700">
           Signup
         </h2>
-        <form onSubmit={handleSignup} className="  flex flex-col">
+        <form onSubmit={handleSignup} className=" flex flex-col">
           {[
             { label: "Username", name: "username", type: "text" },
             { label: "Police Station", name: "policeStation", type: "text" },
@@ -74,7 +74,7 @@ const Register = () => {
             <div key={index} className="mb-2 flex gap-2">
               <label
                 htmlFor={field.name}
-                className="block w-28 text-gray-700 font-medium mb-1"
+                className="block w-40 text-gray-700 font-medium mb-1 text-start"
               >
                 {field.label}:
               </label>
@@ -85,7 +85,7 @@ const Register = () => {
                 value={formData[field.name]}
                 onChange={handleChange}
                 required
-                className="w-[400px] px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 outline-none"
+                className="w-[300px] px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 outline-none"
               />
             </div>
           ))}
@@ -97,7 +97,7 @@ const Register = () => {
             Signup
           </button>
         </form>
-        <div className="text-center mt-4">
+        <div className="text-center mt-2">
           <p className="text-gray-600">
             Already have an account?{" "}
             <Link to={"/login"}>
