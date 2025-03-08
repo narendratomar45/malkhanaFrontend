@@ -8,12 +8,12 @@ const Navbar = () => {
       <div className="text-2xl">
         <GiHamburgerMenu />
       </div>
-      <p className=" uppercase font-bold text-center   mx">Digital Malkhana</p>
+      <p className=" uppercase font-bold text-center">Digital Malkhana</p>
       <div className="flex justify-center items-center">
         <div className=" text-2xl">
           <IoIosLogIn />
         </div>
-        <div>profile</div>
+        <div className=" w-12 h-12 rounded-full border-2 border-white"></div>
       </div>
     </div>
   );

@@ -21,7 +21,7 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     const response = await axios.post(
-      "http://localhost:7000/auth/login",
+      "http://localhost:8080/auth/login",
       { email: formData.email, password: formData.password },
       { withCredentials: true }
     );

@@ -16,10 +16,10 @@ const SiezedVehicleBody = () => {
           <Link to={"/seizedVehicle/artoSeizure"}>
             <p>ARTO Seizure</p>
           </Link>
-          <Link to={"/seizedVehicle/ipcSeizure"}>
+          <Link to={"/seizedVehicle/ipcVehicle"}>
             <p>IPC Seizure</p>
           </Link>
-          <Link to={"/seizedVehicle/exciseSeizure"}>
+          <Link to={"/seizedVehicle/exciseVehicle"}>
             <p>Excise Seizure</p>
           </Link>
           <Link to={"/seizedVehicle/unclaimedVehicle"}>

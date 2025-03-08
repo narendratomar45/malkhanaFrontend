@@ -1,58 +1,59 @@
-import Navbar from "./Components/Navbar";
-import Body from "./pages/Body";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Sidebar from "./pages/Sidebar";
-import MalkhanaEntry from "./pages/malkhanaEntry/MalkhanaEntry";
-import FslEntry from "./pages/malkhanaEntry/FslEntry";
-import KurkiEntry from "./pages/malkhanaEntry/KurkiEntry";
-import OthersEntry from "./pages/malkhanaEntry/OthersEntry";
-import UnclaimedEntry from "./pages/malkhanaEntry/UnclaimedEntry";
-import Dashboard from "./pages/Dashboard";
-import SiezureVehicle from "./pages/siezedVehicleEntry/SiezureVehicle";
-import SummonEntry from "./pages/SummonEntry";
-import MalkhanaMovement from "./pages/malkhanaMovement";
-import MalkhanaRelease from "./pages/malkhanaRelease";
-import GenerateBarcode from "./pages/GenerateBarcode";
-import Reports from "./pages/Reports";
-import ImportData from "./pages/ImportData";
-import ManageUsers from "./pages/ManageUsers";
-import Setting from "./pages/Setting";
-import Help from "./pages/Help";
-import MalkhanaNav from "./pages/malkhanaEntry/MalkhanaNav";
-import ArtoSiezure from "./pages/siezedVehicleEntry/ArtoSiezure";
-import MvactSiezure from "./pages/siezedVehicleEntry/MvactSiezure";
-import ExciseVehicle from "./pages/siezedVehicleEntry/ExciseVehicle";
-import IpcVehicle from "./pages/siezedVehicleEntry/IpcVehicle";
-import UnclaimedVehicle from "./pages/siezedVehicleEntry/UnclaimedVehicle";
-import SiezedVehicleBody from "./pages/siezedVehicleEntry/SiezedVehicleBody";
+import { Suspense, lazy } from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import Loading from "./Components/Loading";
+
+const Login = lazy(() => import("./pages/Login"));
+const Register = lazy(() => import("./pages/Register"));
+const Dashboard = lazy(() => import("./pages/Dashboard"));
+const SummonEntry = lazy(() => import("./pages/SummonEntry"));
+const MalkhanaMovement = lazy(() => import("./pages/malkhanaMovement"));
+const MalkhanaRelease = lazy(() => import("./pages/malkhanaRelease"));
+const GenerateBarcode = lazy(() => import("./pages/GenerateBarcode"));
+const Reports = lazy(() => import("./pages/Reports"));
+const ImportData = lazy(() => import("./pages/ImportData"));
+const ManageUsers = lazy(() => import("./pages/ManageUsers"));
+const Setting = lazy(() => import("./pages/Setting"));
+const Help = lazy(() => import("./pages/Help"));
+const MalkhanaNav = lazy(() => import("./pages/malkhanaEntry/MalkhanaNav"));
+const MalkhanaEntry = lazy(() => import("./pages/malkhanaEntry/MalkhanaEntry"));
+const FslEntry = lazy(() => import("./pages/malkhanaEntry/FslEntry"));
+const KurkiEntry = lazy(() => import("./pages/malkhanaEntry/KurkiEntry"));
+const OthersEntry = lazy(() => import("./pages/malkhanaEntry/OthersEntry"));
+const UnclaimedEntry = lazy(() =>
+  import("./pages/malkhanaEntry/UnclaimedEntry")
+);
+const SiezedVehicleBody = lazy(() =>
+  import("./pages/siezedVehicleEntry/SiezedVehicleBody")
+);
+const SiezureVehicle = lazy(() =>
+  import("./pages/siezedVehicleEntry/SiezureVehicle")
+);
+const MvactSiezure = lazy(() =>
+  import("./pages/siezedVehicleEntry/MvactSiezure")
+);
+const ArtoSiezure = lazy(() =>
+  import("./pages/siezedVehicleEntry/ArtoSiezure")
+);
+const ExciseVehicle = lazy(() =>
+  import("./pages/siezedVehicleEntry/ExciseVehicle")
+);
+const IpcVehicle = lazy(() => import("./pages/siezedVehicleEntry/IpcVehicle"));
+const UnclaimedVehicle = lazy(() =>
+  import("./pages/siezedVehicleEntry/UnclaimedVehicle")
+);
+const Home = lazy(() => import("./pages/Home.jsx"));
+
 function App() {
   return (
-    <>
-      <BrowserRouter>
+    <BrowserRouter>
+      <Suspense fallback={<Loading />}>
         <Routes>
           <Route path="/signup" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/" element={<Body />}>
+
+          {/* Main Layout with Sidebar and Body */}
+          <Route path="/" element={<Home />}>
             <Route path="dashboard" element={<Dashboard />} />
-            <Route path="navbar" element={<Navbar />} />
-            <Route path="sidebar" element={<Sidebar />} />
-            <Route path="malkhana" element={<MalkhanaNav />}>
-              <Route path="malkhanaEntry" element={<MalkhanaEntry />} />
-              <Route path="fslEntry" element={<FslEntry />} />
-              <Route path="kurkiEntry" element={<KurkiEntry />} />
-              <Route path="othersEntry" element={<OthersEntry />} />
-              <Route path="unclaimedEntry" element={<UnclaimedEntry />} />
-            </Route>
-            <Route path="seizedVehicle" element={<SiezedVehicleBody />}>
-              <Route path="seizureVehicle" element={<SiezureVehicle />} />
-              <Route path="mvActSeizure" element={<MvactSiezure />} />
-              <Route path="artoSeizure" element={<ArtoSiezure />} />
-              <Route path="exciseVehicle" element={<ExciseVehicle />} />
-              <Route path="ipcVehicle" element={<IpcVehicle />} />
-              <Route path="unclaimedVehicle" element={<UnclaimedVehicle />} />
-            </Route>
             <Route path="summonEntry" element={<SummonEntry />} />
             <Route path="malkhanaMovement" element={<MalkhanaMovement />} />
             <Route path="malkhanaRelease" element={<MalkhanaRelease />} />
@@ -62,10 +63,29 @@ function App() {
             <Route path="manageUsers" element={<ManageUsers />} />
             <Route path="setting" element={<Setting />} />
             <Route path="help" element={<Help />} />
+
+            <Route path="malkhana" element={<MalkhanaNav />}>
+              <Route index element={<Navigate to="malkhanaEntry" replace />} />
+              <Route path="malkhanaEntry" element={<MalkhanaEntry />} />
+              <Route path="fslEntry" element={<FslEntry />} />
+              <Route path="kurkiEntry" element={<KurkiEntry />} />
+              <Route path="othersEntry" element={<OthersEntry />} />
+              <Route path="unclaimedEntry" element={<UnclaimedEntry />} />
+            </Route>
+
+            <Route path="seizedVehicle" element={<SiezedVehicleBody />}>
+              <Route index element={<Navigate to="seizureVehicle" replace />} />
+              <Route path="seizureVehicle" element={<SiezureVehicle />} />
+              <Route path="mvActSeizure" element={<MvactSiezure />} />
+              <Route path="artoSeizure" element={<ArtoSiezure />} />
+              <Route path="exciseVehicle" element={<ExciseVehicle />} />
+              <Route path="ipcVehicle" element={<IpcVehicle />} />
+              <Route path="unclaimedVehicle" element={<UnclaimedVehicle />} />
+            </Route>
           </Route>
         </Routes>
-      </BrowserRouter>
-    </>
+      </Suspense>
+    </BrowserRouter>
   );
 }
 
