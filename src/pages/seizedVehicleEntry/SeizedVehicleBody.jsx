@@ -4,7 +4,6 @@ import { Link, Outlet, useLocation } from "react-router-dom";
 const SiezedVehicleBody = () => {
   const location = useLocation();
   const seizedLocation = location.pathname.startsWith("/seizedVehicle");
-  console.log("S", seizedLocation);
 
   return (
     <div className="w-full">

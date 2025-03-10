@@ -5,6 +5,12 @@ import fslReducer from "./malkhanaSlice/fslSlice.js";
 import kurkiReducer from "./malkhanaSlice/kurkiSlice.js";
 import othersEntryReducer from "./malkhanaSlice/othersEntrySlice.js";
 import unclaimedEntryReducer from "./malkhanaSlice/unclaimedEntrySlice.js";
+import artoReducer from "./seizedSlice/artoSlice.js";
+import exciseReducer from "./seizedSlice/exciseSlice.js";
+import ipcReducer from "./seizedSlice/ipcSlice.js";
+import mvActReducer from "./seizedSlice/mvActSlice.js";
+import seizureSliceReducer from "./seizedSlice/seizureSlice.js";
+import unclaimedVehicleReducer from "./seizedSlice/unclaimedVehicleSlice.js";
 const appStore = configureStore({
   reducer: {
     user: userReducer,
@@ -13,6 +19,12 @@ const appStore = configureStore({
     kurki: kurkiReducer,
     othersEntry: othersEntryReducer,
     unclaimedEntry: unclaimedEntryReducer,
+    arto: artoReducer,
+    excise: exciseReducer,
+    ipc: ipcReducer,
+    mvAct: mvActReducer,
+    seizureVehicle: seizureSliceReducer,
+    unclaimedVehicle: unclaimedVehicleReducer,
   },
 });
 export default appStore;

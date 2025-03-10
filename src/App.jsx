@@ -23,23 +23,25 @@ const UnclaimedEntry = lazy(() =>
   import("./pages/malkhanaEntry/UnclaimedEntry")
 );
 const SiezedVehicleBody = lazy(() =>
-  import("./pages/siezedVehicleEntry/SiezedVehicleBody")
+  import("./pages/seizedVehicleEntry/SeizedVehicleBody.jsx")
 );
-const SiezureVehicle = lazy(() =>
-  import("./pages/siezedVehicleEntry/SiezureVehicle")
+const SeizureVehicle = lazy(() =>
+  import("./pages/seizedVehicleEntry/SeizureVehicle.jsx")
 );
-const MvactSiezure = lazy(() =>
-  import("./pages/siezedVehicleEntry/MvactSiezure")
+const Mvactseizure = lazy(() =>
+  import("./pages/seizedVehicleEntry/MvactSeizure.jsx")
 );
-const ArtoSiezure = lazy(() =>
-  import("./pages/siezedVehicleEntry/ArtoSiezure")
+const ArtoSeizure = lazy(() =>
+  import("./pages/seizedVehicleEntry/ArtoSeizure.jsx")
 );
 const ExciseVehicle = lazy(() =>
-  import("./pages/siezedVehicleEntry/ExciseVehicle")
+  import("./pages/seizedVehicleEntry/ExciseVehicle.jsx")
 );
-const IpcVehicle = lazy(() => import("./pages/siezedVehicleEntry/IpcVehicle"));
+const IpcVehicle = lazy(() =>
+  import("./pages/seizedVehicleEntry/IpcVehicle.jsx")
+);
 const UnclaimedVehicle = lazy(() =>
-  import("./pages/siezedVehicleEntry/UnclaimedVehicle")
+  import("./pages/seizedVehicleEntry/UnclaimedVehicle.jsx")
 );
 const Home = lazy(() => import("./pages/Home.jsx"));
 
@@ -75,9 +77,9 @@ function App() {
 
             <Route path="seizedVehicle" element={<SiezedVehicleBody />}>
               <Route index element={<Navigate to="seizureVehicle" replace />} />
-              <Route path="seizureVehicle" element={<SiezureVehicle />} />
-              <Route path="mvActSeizure" element={<MvactSiezure />} />
-              <Route path="artoSeizure" element={<ArtoSiezure />} />
+              <Route path="seizureVehicle" element={<SeizureVehicle />} />
+              <Route path="mvActSeizure" element={<Mvactseizure />} />
+              <Route path="artoSeizure" element={<ArtoSeizure />} />
               <Route path="exciseVehicle" element={<ExciseVehicle />} />
               <Route path="ipcVehicle" element={<IpcVehicle />} />
               <Route path="unclaimedVehicle" element={<UnclaimedVehicle />} />
