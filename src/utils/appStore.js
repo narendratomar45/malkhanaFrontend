@@ -11,6 +11,7 @@ import ipcReducer from "./seizedSlice/ipcSlice.js";
 import mvActReducer from "./seizedSlice/mvActSlice.js";
 import seizureSliceReducer from "./seizedSlice/seizureSlice.js";
 import unclaimedVehicleReducer from "./seizedSlice/unclaimedVehicleSlice.js";
+import importDataReducer from "./importDataSlice.js";
 const appStore = configureStore({
   reducer: {
     user: userReducer,
@@ -25,6 +26,7 @@ const appStore = configureStore({
     mvAct: mvActReducer,
     seizureVehicle: seizureSliceReducer,
     unclaimedVehicle: unclaimedVehicleReducer,
+    importData: importDataReducer,
   },
 });
 export default appStore;
