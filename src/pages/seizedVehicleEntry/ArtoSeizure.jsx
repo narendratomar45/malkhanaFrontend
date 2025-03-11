@@ -86,6 +86,7 @@ const ArtoSeizure = () => {
                 type="file"
                 name={key}
                 onChange={handleChange}
+                placeholder={key}
                 className="w-[200px] px-2 py-1 border border-gray-700 rounded outline-none hover:bg-gray-100"
               />
             ) : key === "gdDate" ? (
@@ -94,6 +95,7 @@ const ArtoSeizure = () => {
                 name={key}
                 value={formData[key]}
                 onChange={handleChange}
+                placeholder={key}
                 className="w-[200px] px-2 py-1 border border-gray-700 rounded outline-none hover:bg-gray-100"
               />
             ) : (
@@ -102,6 +104,7 @@ const ArtoSeizure = () => {
                 name={key}
                 value={formData[key]}
                 onChange={handleChange}
+                placeholder={key}
                 className="w-[200px] px-2 py-1 border border-gray-700 rounded outline-none hover:bg-gray-100"
               />
             )}
@@ -118,11 +121,11 @@ const ArtoSeizure = () => {
       <h2 className="text-2xl font-bold my-4">Records</h2>
 
       <div className="mt-8 overflow-x-auto">
-        <table className="w-full border border-gray-300 shadow-lg rounded-lg bg-white">
+        <table className="w-full border border-black shadow-lg rounded-lg bg-white">
           <thead className="bg-blue-500 text-white">
             <tr>
               {Object.keys(formData).map((key) => (
-                <th key={key} className="border p-2 text-left capitalize">
+                <th key={key} className="border border-black p-2 text-left capitalize">
                   {key}
                 </th>
               ))}

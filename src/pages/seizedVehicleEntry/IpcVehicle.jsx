@@ -86,6 +86,7 @@ const IpcVehicle = () => {
                 type="file"
                 name={key}
                 onChange={handleChange}
+                placeholder={key}
                 className="w-[200px] px-2 py-1 border border-gray-700 rounded outline-none hover:bg-gray-100"
               />
             ) : key === "gdDate" ? (
@@ -94,6 +95,7 @@ const IpcVehicle = () => {
                 name={key}
                 value={formData[key]}
                 onChange={handleChange}
+                placeholder={key}
                 className="w-[200px] px-2 py-1 border border-gray-700 rounded outline-none hover:bg-gray-100"
               />
             ) : (
@@ -102,6 +104,7 @@ const IpcVehicle = () => {
                 name={key}
                 value={formData[key]}
                 onChange={handleChange}
+                placeholder={key}
                 className="w-[200px] px-2 py-1 border border-gray-700 rounded outline-none hover:bg-gray-100"
               />
             )}
@@ -116,11 +119,11 @@ const IpcVehicle = () => {
       </form>
 
       <div className="mt-8 overflow-x-auto">
-        <table className="w-full border border-gray-300 shadow-lg rounded-lg bg-white">
+        <table className="w-full border border-black shadow-lg rounded-lg bg-white">
           <thead className="bg-blue-500 text-white">
             <tr>
               {Object.keys(formData).map((record, index) => (
-                <th key={index} className="border p-2 text-left capitalize">
+                <th key={index} className="border border-black p-2 text-left capitalize">
                   {record.replace(/([A-Z])/g, " $1").trim()}
                 </th>
               ))}

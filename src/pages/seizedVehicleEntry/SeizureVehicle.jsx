@@ -69,10 +69,7 @@ const SeizureVehicle = () => {
 
   return (
     <div className="w-[90%] mx-auto my-10">
-      <form
-        onSubmit={handleSubmit}
-        className="flex flex-wrap gap-4 "
-      >
+      <form onSubmit={handleSubmit} className="flex flex-wrap gap-4 ">
         {Object.keys(formData).map((key) => (
           <div key={key}>
             <label
@@ -86,6 +83,7 @@ const SeizureVehicle = () => {
                 type="file"
                 name={key}
                 onChange={handleChange}
+                placeholder={key}
                 className="w-[200px] px-2 py-1 border border-gray-700 rounded outline-none hover:bg-gray-100"
               />
             ) : key === "gdDate" ? (
@@ -94,6 +92,7 @@ const SeizureVehicle = () => {
                 name={key}
                 value={formData[key]}
                 onChange={handleChange}
+                placeholder={key}
                 className="w-[200px] px-2 py-1 border border-gray-700 rounded outline-none hover:bg-gray-100"
               />
             ) : (
@@ -102,6 +101,7 @@ const SeizureVehicle = () => {
                 name={key}
                 value={formData[key]}
                 onChange={handleChange}
+                placeholder={key}
                 className="w-[200px] px-2 py-1 border border-gray-700 rounded outline-none hover:bg-gray-100"
               />
             )}
@@ -116,13 +116,13 @@ const SeizureVehicle = () => {
       </form>
 
       <div className="mt-6 overflow-x-auto">
-        <table className="w-full border border-gray-300 shadow-lg rounded-lg bg-white">
+        <table className="w-full border border-black shadow-lg rounded-lg bg-white">
           <thead className="bg-blue-500 text-white">
-            <tr className="bg-gray-200">
+            <tr className=" bg-blue-600">
               {Object.keys(formData).map((record, index) => (
                 <th
                   key={index}
-                  className="border px-4 py-2 text-left capitalize"
+                  className="border border-black px-4 py-2 text-left capitalize"
                 >
                   {record}
                 </th>
@@ -132,7 +132,7 @@ const SeizureVehicle = () => {
           <tbody>
             {seizureData?.seizureVehicle?.length > 0 ? (
               seizureData.seizureVehicle.map((record, index) => (
-                <tr key={index} className="hover:bg-gray-100">
+                <tr key={index} className="hover:bg-gray-100 ">
                   {Object.keys(formData).map((key) => (
                     <td key={key} className="border px-4 py-2">
                       {key === "gdDate" ? (

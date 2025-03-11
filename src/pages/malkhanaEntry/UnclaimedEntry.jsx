@@ -134,6 +134,9 @@ const UnclaimedEntry = () => {
           Submit
         </button>
       </form>
+      <div>
+        <table></table>
+      </div>
     </div>
   );
 };

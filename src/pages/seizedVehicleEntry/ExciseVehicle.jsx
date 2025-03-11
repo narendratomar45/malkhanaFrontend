@@ -133,11 +133,11 @@ const ExciseVehicle = () => {
         </h2>
 
         <div className="mt-8 overflow-x-auto">
-          <table className="w-full border border-gray-300 shadow-lg rounded-lg bg-white">
+          <table className="w-full border border-black shadow-lg rounded-lg bg-white">
             <thead>
               <tr className="bg-gray-200 text-gray-700">
                 {Object.keys(formData).map((key) => (
-                  <th key={key} className="border p-2 text-left capitalize">
+                  <th key={key} className="border border-black p-2 text-left capitalize">
                     {key}
                   </th>
                 ))}

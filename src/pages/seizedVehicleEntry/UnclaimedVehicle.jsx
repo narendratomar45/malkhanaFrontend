@@ -88,6 +88,7 @@ const UnclaimedVehicle = () => {
                 type="file"
                 name={key}
                 onChange={handleChange}
+                placeholder={key}
                 className="w-[200px] px-2 py-1 border border-gray-700 rounded outline-none hover:bg-gray-100"
               />
             ) : key === "gdDate" ? (
@@ -96,6 +97,7 @@ const UnclaimedVehicle = () => {
                 name={key}
                 value={formData[key]}
                 onChange={handleChange}
+                placeholder={key}
                 className="w-[200px] px-2 py-1 border border-gray-700 rounded outline-none hover:bg-gray-100"
               />
             ) : (
@@ -104,6 +106,7 @@ const UnclaimedVehicle = () => {
                 name={key}
                 value={formData[key]}
                 onChange={handleChange}
+                placeholder={key}
                 className="w-[200px] px-2 py-1 border border-gray-700 rounded outline-none hover:bg-gray-100"
               />
             )}
@@ -123,7 +126,7 @@ const UnclaimedVehicle = () => {
           <thead>
             <tr className="bg-blue-600 text-white">
               {Object.keys(formData).map((key) => (
-                <th key={key} className="p-3 border capitalize">
+                <th key={key} className="p-3 border border-black capitalize border-black">
                   {key.replace(/([A-Z])/g, " $1")}
                 </th>
               ))}
@@ -169,6 +172,7 @@ const UnclaimedVehicle = () => {
           </tbody>
         </table>
       </div>
+
     </div>
   );
 };
