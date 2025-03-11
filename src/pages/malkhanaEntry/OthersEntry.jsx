@@ -33,7 +33,14 @@ const OthersEntry = () => {
       [name]: type === "file" ? files[0] : value, // Handling file input
     }));
   };
-
+  const fetchOthersEntryData = async () => {
+    try {
+      const response = await axios.get("http://localhost:8080/api/otherEntry");
+      dispatch(addOthersEntry(response.data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -45,31 +52,22 @@ const OthersEntry = () => {
         formDataToSend.append(key, formData[key]);
       });
 
-      const response = await axios.post(
-        "http://localhost:8080/api/otherEntry",
-        formDataToSend,
-        { headers: { "Content-Type": "multipart/form-data" } }
-      );
+      await axios.post("http://localhost:8080/api/otherEntry", formDataToSend, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
 
-      console.log("RESPONSE", response.data);
+      fetchOthersEntryData();
     } catch (error) {
       console.log("ERROR", error.response?.data || error.message);
     }
   };
-  const fetchOthersEntryData = async () => {
-    try {
-      const response = await axios.get("http://localhost:8080/api/otherEntry");
-      dispatch(addOthersEntry(response.data));
-    } catch (error) {
-      console.log(error);
-    }
-  };
+
   useEffect(() => {
     fetchOthersEntryData();
   }, []);
   if (!otherEntryData) return;
   return (
-    <div className="w-full my-10">
+    <div className="w-[90%] mx-auto my-10">
       <form
         onSubmit={handleSubmit}
         className="flex flex-wrap gap-4 justify-self-auto mx-auto"
@@ -103,18 +101,19 @@ const OthersEntry = () => {
               type={field.type}
               name={field.name}
               onChange={handleChange}
+              placeholder={field.label}
               className="w-[200px] px-2 py-1 border border-gray-700 rounded outline-none hover:bg-gray-100"
             />
           </div>
         ))}
         <button
           type="submit"
-          className="bg-[#7b5926] text-white px-4 py-2 rounded-md"
+          className="bg-[#7b5926] text-white px-4 py-2 rounded-md w-48"
         >
           Submit
         </button>
       </form>
-      <div className="my-10">
+      <div className="mt-8 overflow-x-auto">
         <table className=" w-full border border-collapse">
           <thead>
             <tr className="bg-gray-200">

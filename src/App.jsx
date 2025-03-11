@@ -47,47 +47,54 @@ const Home = lazy(() => import("./pages/Home.jsx"));
 
 function App() {
   return (
-    <BrowserRouter>
-      <Suspense fallback={<Loading />}>
-        <Routes>
-          <Route path="/signup" element={<Register />} />
-          <Route path="/login" element={<Login />} />
+    <div className="">
+      <BrowserRouter>
+        <Suspense fallback={<Loading />}>
+          <Routes>
+            <Route path="/login" element={<Login />} />
 
-          {/* Main Layout with Sidebar and Body */}
-          <Route path="/" element={<Home />}>
-            <Route path="dashboard" element={<Dashboard />} />
-            <Route path="summonEntry" element={<SummonEntry />} />
-            <Route path="malkhanaMovement" element={<MalkhanaMovement />} />
-            <Route path="malkhanaRelease" element={<MalkhanaRelease />} />
-            <Route path="generateBarcode" element={<GenerateBarcode />} />
-            <Route path="reports" element={<Reports />} />
-            <Route path="importData" element={<ImportData />} />
-            <Route path="manageUsers" element={<ManageUsers />} />
-            <Route path="setting" element={<Setting />} />
-            <Route path="help" element={<Help />} />
+            {/* Main Layout with Sidebar and Body */}
+            <Route path="/" element={<Home />}>
+              <Route path="dashboard" element={<Dashboard />} />
+              <Route path="summonEntry" element={<SummonEntry />} />
+              <Route path="malkhanaMovement" element={<MalkhanaMovement />} />
+              <Route path="malkhanaRelease" element={<MalkhanaRelease />} />
+              <Route path="generateBarcode" element={<GenerateBarcode />} />
+              <Route path="reports" element={<Reports />} />
+              <Route path="importData" element={<ImportData />} />
+              <Route path="manageUsers" element={<ManageUsers />} />
+              <Route path="setting" element={<Setting />} />
+              <Route path="help" element={<Help />} />
+              <Route path="signup" element={<Register />} />
+              <Route path="malkhana" element={<MalkhanaNav />}>
+                <Route
+                  index
+                  element={<Navigate to="malkhanaEntry" replace />}
+                />
+                <Route path="malkhanaEntry" element={<MalkhanaEntry />} />
+                <Route path="fslEntry" element={<FslEntry />} />
+                <Route path="kurkiEntry" element={<KurkiEntry />} />
+                <Route path="othersEntry" element={<OthersEntry />} />
+                <Route path="unclaimedEntry" element={<UnclaimedEntry />} />
+              </Route>
 
-            <Route path="malkhana" element={<MalkhanaNav />}>
-              <Route index element={<Navigate to="malkhanaEntry" replace />} />
-              <Route path="malkhanaEntry" element={<MalkhanaEntry />} />
-              <Route path="fslEntry" element={<FslEntry />} />
-              <Route path="kurkiEntry" element={<KurkiEntry />} />
-              <Route path="othersEntry" element={<OthersEntry />} />
-              <Route path="unclaimedEntry" element={<UnclaimedEntry />} />
+              <Route path="seizedVehicle" element={<SiezedVehicleBody />}>
+                <Route
+                  index
+                  element={<Navigate to="seizureVehicle" replace />}
+                />
+                <Route path="seizureVehicle" element={<SeizureVehicle />} />
+                <Route path="mvActSeizure" element={<Mvactseizure />} />
+                <Route path="artoSeizure" element={<ArtoSeizure />} />
+                <Route path="exciseVehicle" element={<ExciseVehicle />} />
+                <Route path="ipcVehicle" element={<IpcVehicle />} />
+                <Route path="unclaimedVehicle" element={<UnclaimedVehicle />} />
+              </Route>
             </Route>
-
-            <Route path="seizedVehicle" element={<SiezedVehicleBody />}>
-              <Route index element={<Navigate to="seizureVehicle" replace />} />
-              <Route path="seizureVehicle" element={<SeizureVehicle />} />
-              <Route path="mvActSeizure" element={<Mvactseizure />} />
-              <Route path="artoSeizure" element={<ArtoSeizure />} />
-              <Route path="exciseVehicle" element={<ExciseVehicle />} />
-              <Route path="ipcVehicle" element={<IpcVehicle />} />
-              <Route path="unclaimedVehicle" element={<UnclaimedVehicle />} />
-            </Route>
-          </Route>
-        </Routes>
-      </Suspense>
-    </BrowserRouter>
+          </Routes>
+        </Suspense>
+      </BrowserRouter>
+    </div>
   );
 }
 

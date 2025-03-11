@@ -59,25 +59,12 @@ const UnclaimedEntry = () => {
       // Update Redux store
       dispatch(addUnclaimedEntry(response.data));
 
-      // Reset form state
-      setFormData({
-        firNumber: "",
-        firYear: "",
-        mudNumber: "",
-        gdNumber: "",
-        gdDate: "",
-        ioName: "",
-        dakhilKarneWala: "",
-        banam: "",
-        caseProperty: "",
-        underSection: "",
-        actType: "",
-        description: "",
-        place: "",
-        court: "",
-        status: "",
-        avatar: null, // Reset file input
-      });
+      setFormData((prevState) =>
+        Object.keys(prevState).reduce((acc, key) => {
+          acc[key] = key === "document" ? null : "";
+          return acc;
+        }, {})
+      );
     } catch (error) {
       console.log("ERROR", error.response?.data || error.message);
     }
@@ -101,7 +88,7 @@ const UnclaimedEntry = () => {
   }, []);
 
   return (
-    <div className="w-full my-10">
+    <div className="w-[90%] mx-auto my-10">
       <form
         onSubmit={handleSubmit}
         className="flex flex-wrap gap-4 justify-self-auto mx-auto"
@@ -135,13 +122,14 @@ const UnclaimedEntry = () => {
               type={field.type}
               name={field.name}
               onChange={handleChange}
+              placeholder={field.label}
               className="w-[200px] px-2 py-1 border border-gray-700 rounded outline-none hover:bg-gray-100"
             />
           </div>
         ))}
         <button
           type="submit"
-          className="bg-[#7b5926] text-white px-4 py-2 rounded-md"
+          className="bg-[#7b5926] text-white px-4 py-2 rounded-md w-48"
         >
           Submit
         </button>

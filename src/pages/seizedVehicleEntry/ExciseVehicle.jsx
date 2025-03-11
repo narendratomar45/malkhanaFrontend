@@ -76,20 +76,17 @@ const ExciseVehicle = () => {
   if (!exciseData) return <div className="text-center text-lg">Loading...</div>;
 
   return (
-    <div className="w-full ">
+    <div className="w-[90%] mx-auto my-10">
       <h2 className="text-2xl font-bold mb-4 text-center text-blue-700">
         Excise Vehicle Form
       </h2>
 
-      <form
-        onSubmit={handleSubmit}
-        className="w-[80%] flex flex-wrap gap-4 justify-self-auto mx-auto"
-      >
+      <form onSubmit={handleSubmit} className="flex flex-wrap   gap-4 ">
         {Object.keys(formData).map((key) => (
-          <div key={key} className="mb-4">
+          <div key={key}>
             <label
               htmlFor={key}
-              className="block text-gray-700 font-medium mb-1 text-start capitalize"
+              className="block text-gray-700 font-medium mb-1 text-start"
             >
               {key}:
             </label>
@@ -124,7 +121,7 @@ const ExciseVehicle = () => {
         ))}
         <button
           type="submit"
-          className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 w-40 mt-4"
+          className="bg-[#7b5926] text-white px-4 py-2 rounded-md w-48"
         >
           Submit
         </button>
@@ -135,8 +132,8 @@ const ExciseVehicle = () => {
           Records
         </h2>
 
-        <div className="overflow-x-auto mt-4">
-          <table className="min-w-full bg-white shadow-md rounded-lg border border-gray-300">
+        <div className="mt-8 overflow-x-auto">
+          <table className="w-full border border-gray-300 shadow-lg rounded-lg bg-white">
             <thead>
               <tr className="bg-gray-200 text-gray-700">
                 {Object.keys(formData).map((key) => (
@@ -152,7 +149,9 @@ const ExciseVehicle = () => {
                   <tr key={index} className="hover:bg-gray-100">
                     {Object.keys(formData).map((key) => (
                       <td key={key} className="border p-2">
-                        {key === "document" ? (
+                        {key === "gdDate" ? (
+                          new Date(record[key]).toLocaleDateString("en-GB")
+                        ) : key === "document" ? (
                           <a
                             href={`http://localhost:8080/uploads/${record[key]}`}
                             target="_blank"

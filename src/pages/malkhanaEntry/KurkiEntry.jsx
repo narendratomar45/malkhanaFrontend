@@ -24,8 +24,15 @@ const KurkiEntry = () => {
   });
   const dispatch = useDispatch();
   const kurkiData = useSelector((store) => store.kurki);
-  console.log("KURKI", kurkiData);
 
+  const fetchKurkiData = async () => {
+    try {
+      const response = await axios.get("http://localhost:8080/api/kurkiEntry");
+      dispatch(addKurki(response.data));
+    } catch (error) {
+      console.log("ERROR", error);
+    }
+  };
   const handleChange = (e) => {
     const { name, value, type, files } = e.target;
     setFormData((prevState) => ({
@@ -45,32 +52,22 @@ const KurkiEntry = () => {
         formDataToSend.append(key, formData[key]);
       });
 
-      const response = await axios.post(
-        "http://localhost:8080/api/kurkiEntry",
-        formDataToSend,
-        { headers: { "Content-Type": "multipart/form-data" } }
-      );
+      await axios.post("http://localhost:8080/api/kurkiEntry", formDataToSend, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
 
-      console.log("RESPONSE", response.data);
-      alert("Form submitted successfully!");
+      fetchKurkiData();
     } catch (error) {
       console.log("ERROR", error.response?.data || error.message);
     }
   };
-  const fetchKurkiData = async () => {
-    try {
-      const response = await axios.get("http://localhost:8080/api/kurkiEntry");
-      dispatch(addKurki(response.data));
-    } catch (error) {
-      console.log("ERROR", error);
-    }
-  };
+
   useEffect(() => {
     fetchKurkiData();
   }, []);
   if (!kurkiData) return;
   return (
-    <div className="w-full my-10">
+    <div className="w-[90%] mx-auto my-10">
       <form
         onSubmit={handleSubmit}
         className="flex flex-wrap gap-4 justify-self-auto mx-auto"
@@ -104,18 +101,19 @@ const KurkiEntry = () => {
               type={field.type}
               name={field.name}
               onChange={handleChange}
+              placeholder={field.label}
               className="w-[200px] px-2 py-1 border border-gray-700 rounded outline-none hover:bg-gray-100"
             />
           </div>
         ))}
         <button
           type="submit"
-          className="bg-[#7b5926] text-white px-4 py-2 rounded-md"
+          className="bg-[#7b5926] text-white px-4 py-2 rounded-md w-48"
         >
           Submit
         </button>
       </form>
-      <div className="my-10">
+      <div className="mt-8 overflow-x-auto">
         <table className=" w-full border border-collapse">
           <thead>
             <tr className="bg-gray-200">

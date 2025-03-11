@@ -70,16 +70,15 @@ const UnclaimedVehicle = () => {
     return <div className="text-center mt-10 text-gray-500">Loading...</div>;
 
   return (
-    <div className="container mx-auto p-6">
-      {/* Form Section */}
+    <div className="w-[90%] mx-auto my-10">
       <form
         onSubmit={handleSubmit}
-        className="max-w-lg mx-auto bg-white p-6 shadow-md rounded-lg"
+        className="flex flex-wrap gap-4 justify-self-auto mx-auto"
       >
         {Object.keys(formData).map((key) => (
-          <div key={key} className="mb-4">
+          <div key={key}>
             <label
-              className="block font-semibold text-gray-700 mb-1 capitalize"
+              className="block text-gray-700 font-medium mb-1 text-start"
               htmlFor={key}
             >
               {key.replace(/([A-Z])/g, " $1")}
@@ -89,7 +88,7 @@ const UnclaimedVehicle = () => {
                 type="file"
                 name={key}
                 onChange={handleChange}
-                className="block w-full border border-gray-300 rounded p-2"
+                className="w-[200px] px-2 py-1 border border-gray-700 rounded outline-none hover:bg-gray-100"
               />
             ) : key === "gdDate" ? (
               <input
@@ -97,7 +96,7 @@ const UnclaimedVehicle = () => {
                 name={key}
                 value={formData[key]}
                 onChange={handleChange}
-                className="block w-full border border-gray-300 rounded p-2"
+                className="w-[200px] px-2 py-1 border border-gray-700 rounded outline-none hover:bg-gray-100"
               />
             ) : (
               <input
@@ -105,14 +104,14 @@ const UnclaimedVehicle = () => {
                 name={key}
                 value={formData[key]}
                 onChange={handleChange}
-                className="block w-full border border-gray-300 rounded p-2"
+                className="w-[200px] px-2 py-1 border border-gray-700 rounded outline-none hover:bg-gray-100"
               />
             )}
           </div>
         ))}
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition"
+          className="bg-[#7b5926] text-white px-4 py-2 rounded-md w-48"
         >
           Submit
         </button>
@@ -139,7 +138,9 @@ const UnclaimedVehicle = () => {
                 >
                   {Object.keys(formData).map((key) => (
                     <td key={key} className="p-3 border text-center">
-                      {key === "document" ? (
+                      {key === "gdDate" ? (
+                        new Date(record[key]).toLocaleDateString("en-GB")
+                      ) : key === "document" ? (
                         <a
                           href=""
                           target="_blank"

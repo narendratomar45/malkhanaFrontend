@@ -68,18 +68,25 @@ const ArtoSeizure = () => {
   };
   if (!artoData) return <p>Loading...</p>;
   return (
-    <div className="p-5 max-w-4xl mx-auto">
-      <h2 className="text-2xl font-bold mb-4">Arto Seizure Form</h2>
-      <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-4">
+    <div className="w-[90%] mx-auto my-10 overflow-hidden">
+      <h2 className="text-xl font-semibold text-gray-700 mb-4">
+        Arto Seizure Form
+      </h2>
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-wrap  gap-4 justify-self-auto mx-auto"
+      >
         {Object.keys(formData).map((key) => (
-          <div key={key}>
-            <label className="block font-medium">{key}:</label>
+          <div key={key} className="flex flex-col">
+            <label className="block text-gray-700 font-medium mb-1 text-start">
+              {key}:
+            </label>
             {key === "document" ? (
               <input
                 type="file"
                 name={key}
                 onChange={handleChange}
-                className="border p-2 w-full"
+                className="w-[200px] px-2 py-1 border border-gray-700 rounded outline-none hover:bg-gray-100"
               />
             ) : key === "gdDate" ? (
               <input
@@ -87,7 +94,7 @@ const ArtoSeizure = () => {
                 name={key}
                 value={formData[key]}
                 onChange={handleChange}
-                className="border p-2 w-full"
+                className="w-[200px] px-2 py-1 border border-gray-700 rounded outline-none hover:bg-gray-100"
               />
             ) : (
               <input
@@ -95,55 +102,63 @@ const ArtoSeizure = () => {
                 name={key}
                 value={formData[key]}
                 onChange={handleChange}
-                className="border p-2 w-full"
+                className="w-[200px] px-2 py-1 border border-gray-700 rounded outline-none hover:bg-gray-100"
               />
             )}
           </div>
         ))}
-        <button type="submit" className="col-span-2 bg-blue-500 text-white p-2">
+        <button
+          type="submit"
+          className="bg-[#7b5926] text-white px-4 py-2 rounded-md w-48"
+        >
           Submit
         </button>
       </form>
 
       <h2 className="text-2xl font-bold my-4">Records</h2>
-      <table className="w-full border-collapse border">
-        <thead>
-          <tr>
-            {Object.keys(formData).map((key) => (
-              <th key={key} className="border p-2">
-                {key}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {artoData?.artoSeizure?.length > 0 ? (
-            artoData.artoSeizure.map((record, index) => (
-              <tr key={index} className="border">
-                {Object.keys(formData).map((key) => (
-                  <td key={key} className="border p-2">
-                    {key === "document" ? (
-                      <a
-                        href={`http://localhost:8080/uploads/${record[key]}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        View Document
-                      </a>
-                    ) : (
-                      record[key]
-                    )}
-                  </td>
-                ))}
-              </tr>
-            ))
-          ) : (
-            <td colSpan={10} className="text-center">
-              No Record found
-            </td>
-          )}
-        </tbody>
-      </table>
+
+      <div className="mt-8 overflow-x-auto">
+        <table className="w-full border border-gray-300 shadow-lg rounded-lg bg-white">
+          <thead className="bg-blue-500 text-white">
+            <tr>
+              {Object.keys(formData).map((key) => (
+                <th key={key} className="border p-2 text-left capitalize">
+                  {key}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {artoData?.artoSeizure?.length > 0 ? (
+              artoData.artoSeizure.map((record, index) => (
+                <tr key={index} className="hover:bg-gray-100">
+                  {Object.keys(formData).map((key) => (
+                    <td key={key} className="border p-2">
+                      {key === "gdDate" ? (
+                        new Date(record[key]).toLocaleDateString("en-GB")
+                      ) : key === "document" ? (
+                        <a
+                          href={`http://localhost:8080/uploads/${record[key]}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          View Document
+                        </a>
+                      ) : (
+                        record[key]
+                      )}
+                    </td>
+                  ))}
+                </tr>
+              ))
+            ) : (
+              <td colSpan={10} className="text-center">
+                No Record found
+              </td>
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

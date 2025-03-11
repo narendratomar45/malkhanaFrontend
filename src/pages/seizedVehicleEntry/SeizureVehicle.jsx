@@ -68,11 +68,17 @@ const SeizureVehicle = () => {
     return <div className="text-center text-xl">Loading...</div>;
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-gray-100 rounded-lg shadow-md">
-      <form onSubmit={handleSubmit} className="space-y-4">
+    <div className="w-[90%] mx-auto my-10">
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-wrap gap-4 "
+      >
         {Object.keys(formData).map((key) => (
-          <div key={key} className="flex flex-col">
-            <label htmlFor={key} className="font-semibold capitalize">
+          <div key={key}>
+            <label
+              htmlFor={key}
+              className="block text-gray-700 font-medium mb-1 text-start"
+            >
               {key}:
             </label>
             {key === "document" ? (
@@ -80,7 +86,7 @@ const SeizureVehicle = () => {
                 type="file"
                 name={key}
                 onChange={handleChange}
-                className="p-2 border rounded-md"
+                className="w-[200px] px-2 py-1 border border-gray-700 rounded outline-none hover:bg-gray-100"
               />
             ) : key === "gdDate" ? (
               <input
@@ -88,7 +94,7 @@ const SeizureVehicle = () => {
                 name={key}
                 value={formData[key]}
                 onChange={handleChange}
-                className="p-2 border rounded-md"
+                className="w-[200px] px-2 py-1 border border-gray-700 rounded outline-none hover:bg-gray-100"
               />
             ) : (
               <input
@@ -96,22 +102,22 @@ const SeizureVehicle = () => {
                 name={key}
                 value={formData[key]}
                 onChange={handleChange}
-                className="p-2 border rounded-md"
+                className="w-[200px] px-2 py-1 border border-gray-700 rounded outline-none hover:bg-gray-100"
               />
             )}
           </div>
         ))}
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
+          className="bg-[#7b5926] text-white px-4 py-2 rounded-md w-48"
         >
           Submit
         </button>
       </form>
 
       <div className="mt-6 overflow-x-auto">
-        <table className="w-full border-collapse border border-gray-300">
-          <thead>
+        <table className="w-full border border-gray-300 shadow-lg rounded-lg bg-white">
+          <thead className="bg-blue-500 text-white">
             <tr className="bg-gray-200">
               {Object.keys(formData).map((record, index) => (
                 <th
@@ -129,7 +135,9 @@ const SeizureVehicle = () => {
                 <tr key={index} className="hover:bg-gray-100">
                   {Object.keys(formData).map((key) => (
                     <td key={key} className="border px-4 py-2">
-                      {key === "document" ? (
+                      {key === "gdDate" ? (
+                        new Date(record[key]).toLocaleDateString("en-GB")
+                      ) : key === "document" ? (
                         <a
                           href=""
                           target="_blank"

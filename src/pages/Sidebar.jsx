@@ -78,7 +78,7 @@ const Sidebar = () => {
               <p>Imports data</p>
             </div>
           </Link>
-          <Link to={"/manageUsers"}>
+          <Link to={"/signup"}>
             <div className="flex items-center gap-3 mt-4">
               <MdManageAccounts />
               <p>Manage Users</p>
