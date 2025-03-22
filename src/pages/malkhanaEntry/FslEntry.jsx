@@ -25,9 +25,14 @@ const FslEntry = () => {
   const dispatch = useDispatch();
   const fslData = useSelector((store) => store.fslEntry);
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 2;
   const fetchFslData = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/api/fslEntry");
+      const token = localStorage.getItem("malkhanaToken");
+      const response = await axios.get("http://localhost:8080/api/fslEntry", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       dispatch(addFsl(response.data));
     } catch (error) {
       console.log("ERROR", error);
@@ -38,7 +43,7 @@ const FslEntry = () => {
     const { name, value, type, files } = e.target;
     setFormData((prevState) => ({
       ...prevState,
-      [name]: type === "file" ? files[0] : value, // Handling file input
+      [name]: type === "file" ? files[0] : value,
     }));
   };
 
@@ -61,6 +66,22 @@ const FslEntry = () => {
     }
   };
 
+  const totalItems = fslData?.fslEntry?.length || 0;
+
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+  const paginatedData = fslData?.fslEntry?.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+  const handlePageChange = (direction) => {
+    setCurrentPage((prevPage) => {
+      if (direction === "prev" && prevPage > 1) return prevPage - 1;
+      if (direction === "next" && prevPage < totalPages) return prevPage + 1;
+      return prevPage;
+    });
+  };
+
   useEffect(() => {
     fetchFslData();
   }, []);
@@ -68,7 +89,7 @@ const FslEntry = () => {
   if (!fslData) return;
 
   return (
-    <div className="w-[90%] mx-auto my-10">
+    <div className="w-full mx-auto my-10">
       <form
         onSubmit={handleSubmit}
         className="flex flex-wrap gap-4 justify-self-auto mx-auto"
@@ -109,36 +130,36 @@ const FslEntry = () => {
         ))}
         <button
           type="submit"
-          className="bg-[#7b5926] text-white px-4 py-2 rounded-md w-48"
+          className="bg-green-500 text-white px-4 py-2 rounded-md w-48"
         >
           Submit
         </button>
       </form>
-      <div className="mt-8 overflow-x-auto w-[90%] mx-0">
-        <table className=" w-full border border-collapse">
+      <div className="mt-8 overflow-x-auto w-full mx-0">
+        <table className=" w-full border-2 border-black border-collapse">
           <thead>
-            <tr className="bg-gray-200">
-              <th className="border p-2">Fir Number</th>
-              <th className="border p-2">Fir Year</th>
-              <th className="border p-2">Mud Number</th>
-              <th className="border p-2">Gd Number</th>
-              <th className="border p-2">Gd Date</th>
-              <th className="border p-2">Io Name</th>
-              <th className="border p-2">Dakhil KarneWala</th>
-              <th className="border p-2">Banam</th>
-              <th className="border p-2">Case Property</th>
-              <th className="border p-2">Under Section</th>
-              <th className="border p-2">Act Type</th>
-              <th className="border p-2">Description</th>
-              <th className="border p-2">Place</th>
-              <th className="border p-2">Court</th>
-              <th className="border p-2">Status</th>
+            <tr className="bg-green-500 text-black">
+              <th className="border border-black p-2">Fir Number</th>
+              <th className="border border-black p-2">Fir Year</th>
+              <th className="border border-black p-2">Mud Number</th>
+              <th className="border border-black p-2">Gd Number</th>
+              <th className="border border-black p-2">Gd Date</th>
+              <th className="border border-black p-2">Io Name</th>
+              <th className="border border-black p-2">Dakhil KarneWala</th>
+              <th className="border border-black p-2">Banam</th>
+              <th className="border border-black p-2">Case Property</th>
+              <th className="border border-black p-2">Under Section</th>
+              <th className="border border-black p-2">Act Type</th>
+              <th className="border border-black p-2">Description</th>
+              <th className="border border-black p-2">Place</th>
+              <th className="border border-black p-2">Court</th>
+              <th className="border border-black p-2">Status</th>
             </tr>
           </thead>
 
           <tbody>
-            {fslData?.fslEntry?.length > 0 ? (
-              fslData.fslEntry.map((entry, index) => (
+            {paginatedData?.length > 0 ? (
+              paginatedData.map((entry, index) => (
                 <tr key={index} className="border">
                   <td className="border p-2">{entry.firNumber}</td>
                   <td className="border p-2">{entry.firYear}</td>
@@ -166,6 +187,29 @@ const FslEntry = () => {
             )}
           </tbody>
         </table>
+      </div>
+      <div className=" flex justify-center items-center gap-5">
+        <button
+          onClick={() => {
+            handlePageChange("prev");
+          }}
+          disabled={currentPage === 1}
+          className="px-4 py-2 bg-gray-300 rounded disabled:opacity-50"
+        >
+          Prev
+        </button>
+        <span>
+          Page{currentPage} of {totalPages}
+        </span>
+        <button
+          onClick={() => {
+            handlePageChange("next");
+          }}
+          disabled={currentPage === totalPages}
+          className="px-4 py-2 bg-gray-300 rounded disabled:opacity-50"
+        >
+          Next
+        </button>
       </div>
     </div>
   );

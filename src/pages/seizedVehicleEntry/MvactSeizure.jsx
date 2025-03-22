@@ -28,8 +28,10 @@ const MvactSeizure = () => {
 
   const fetchMvActData = async () => {
     try {
+      const token = localStorage.getItem("malkhanaToken");
       const response = await axios.get(
-        "http://localhost:8080/api/mvActSeizure"
+        "http://localhost:8080/api/mvActSeizure",
+        { headers: { Authorization: `Bearer ${token}` } }
       );
       dispatch(addMvAct(response.data));
     } catch (error) {
@@ -64,7 +66,7 @@ const MvactSeizure = () => {
   if (!mvActData) return <div className="text-center py-4">Loading...</div>;
 
   return (
-    <div className="w-[90%] mx-auto my-10">
+    <div className="w-full mx-auto my-10">
       <h2 className="text-xl font-semibold text-gray-700 mb-4">
         MV Act Seizure Form
       </h2>
@@ -111,7 +113,7 @@ const MvactSeizure = () => {
         ))}
         <button
           type="submit"
-          className="bg-[#7b5926] text-white px-4 py-2 rounded-md w-48"
+          className="bg-blue-500 text-white px-4 py-2 rounded-md w-48"
         >
           Submit
         </button>
@@ -122,7 +124,10 @@ const MvactSeizure = () => {
           <thead className="bg-blue-500 text-white">
             <tr>
               {Object.keys(formData).map((key, index) => (
-                <th key={index} className="border border-black p-2 text-left capitalize">
+                <th
+                  key={index}
+                  className="border border-black p-2 text-left capitalize"
+                >
                   {key.replace(/([A-Z])/g, " $1").trim()}
                 </th>
               ))}

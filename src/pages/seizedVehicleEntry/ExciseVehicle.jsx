@@ -32,8 +32,10 @@ const ExciseVehicle = () => {
 
   const fetchExciseVehicle = async () => {
     try {
+      const token = localStorage.getItem("malkhanaToken");
       const response = await axios.get(
-        "http://localhost:8080/api/exciseVehicle"
+        "http://localhost:8080/api/exciseVehicle",
+        { headers: { Authorization: `Bearer ${token}` } }
       );
       dispatch(addExcise(response.data));
       console.log("RES", response);
@@ -76,7 +78,7 @@ const ExciseVehicle = () => {
   if (!exciseData) return <div className="text-center text-lg">Loading...</div>;
 
   return (
-    <div className="w-[90%] mx-auto my-10">
+    <div className="w-full mx-auto my-10">
       <h2 className="text-2xl font-bold mb-4 text-center text-blue-700">
         Excise Vehicle Form
       </h2>
@@ -121,7 +123,7 @@ const ExciseVehicle = () => {
         ))}
         <button
           type="submit"
-          className="bg-[#7b5926] text-white px-4 py-2 rounded-md w-48"
+          className="bg-red-500 text-white px-4 py-2 rounded-md w-48"
         >
           Submit
         </button>
@@ -135,9 +137,12 @@ const ExciseVehicle = () => {
         <div className="mt-8 overflow-x-auto">
           <table className="w-full border border-black shadow-lg rounded-lg bg-white">
             <thead>
-              <tr className="bg-gray-200 text-gray-700">
+              <tr className="bg-red-500 text-black">
                 {Object.keys(formData).map((key) => (
-                  <th key={key} className="border border-black p-2 text-left capitalize">
+                  <th
+                    key={key}
+                    className="border border-black p-2 text-left capitalize"
+                  >
                     {key}
                   </th>
                 ))}

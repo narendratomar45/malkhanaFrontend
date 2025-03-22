@@ -8,7 +8,7 @@ const SiezedVehicleBody = () => {
   return (
     <div className="w-full">
       {seizedLocation && (
-        <nav className="flex flex-wrap justify-center gap-5 p-4 bg-gray-100 shadow-md rounded-lg mx-auto max-w-5xl">
+        <nav className="flex flex-wrap justify-center gap-4 p-4 bg-gray-100 shadow-md rounded-lg mx-auto max-w-5xl">
           <Link
             to={"/seizedVehicle/mvActSeizure"}
             className="px-4 py-2 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 transition"

@@ -11,7 +11,7 @@ const MalkhanaRelease = lazy(() => import("./pages/malkhanaRelease"));
 const GenerateBarcode = lazy(() => import("./pages/GenerateBarcode"));
 const Reports = lazy(() => import("./pages/Reports"));
 const ImportData = lazy(() => import("./pages/ImportData"));
-const ManageUsers = lazy(() => import("./pages/ManageUsers"));
+// const ManageUsers = lazy(() => import("./pages/ManageUsers"));
 const Setting = lazy(() => import("./pages/Setting"));
 const Help = lazy(() => import("./pages/Help"));
 const MalkhanaNav = lazy(() => import("./pages/malkhanaEntry/MalkhanaNav"));
@@ -55,6 +55,7 @@ function App() {
 
             {/* Main Layout with Sidebar and Body */}
             <Route path="/" element={<Home />}>
+              <Route index element={<Navigate to="dashboard" replace />} />
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="summonEntry" element={<SummonEntry />} />
               <Route path="malkhanaMovement" element={<MalkhanaMovement />} />
@@ -62,7 +63,7 @@ function App() {
               <Route path="generateBarcode" element={<GenerateBarcode />} />
               <Route path="reports" element={<Reports />} />
               <Route path="importData" element={<ImportData />} />
-              <Route path="manageUsers" element={<ManageUsers />} />
+              {/* <Route path="manageUsers" element={<ManageUsers />} /> */}
               <Route path="setting" element={<Setting />} />
               <Route path="help" element={<Help />} />
               <Route path="signup" element={<Register />} />
@@ -79,10 +80,7 @@ function App() {
               </Route>
 
               <Route path="seizedVehicle" element={<SiezedVehicleBody />}>
-                <Route
-                  index
-                  element={<Navigate to="seizureVehicle" replace />}
-                />
+                <Route index element={<Navigate to="mvActSeizure" replace />} />
                 <Route path="seizureVehicle" element={<SeizureVehicle />} />
                 <Route path="mvActSeizure" element={<Mvactseizure />} />
                 <Route path="artoSeizure" element={<ArtoSeizure />} />

@@ -25,9 +25,15 @@ const KurkiEntry = () => {
   const dispatch = useDispatch();
   const kurkiData = useSelector((store) => store.kurki);
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 3;
+
   const fetchKurkiData = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/api/kurkiEntry");
+      const token = localStorage.getItem("malkhanaToken");
+      const response = await axios.get("http://localhost:8080/api/kurkiEntry", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       dispatch(addKurki(response.data));
     } catch (error) {
       console.log("ERROR", error);
@@ -53,7 +59,10 @@ const KurkiEntry = () => {
       });
 
       await axios.post("http://localhost:8080/api/kurkiEntry", formDataToSend, {
-        headers: { "Content-Type": "multipart/form-data" },
+        headers: {
+          "Content-Type": "multipart/form-data",
+          withCredentials: true,
+        },
       });
 
       fetchKurkiData();
@@ -62,12 +71,27 @@ const KurkiEntry = () => {
     }
   };
 
+  const totalItems = kurkiData?.kurki?.length || 0;
+  const totalPages = Math.max(1, Math.ceil(totalItems / itemsPerPage));
+
+  const paginatedData = kurkiData?.kurki?.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+  const handlePageChange = (direction) => {
+    setCurrentPage((prevPage) => {
+      if (direction === "prev" && prevPage > 1) return prevPage - 1;
+      if (direction === "next" && prevPage < totalPages) return prevPage + 1;
+      return prevPage;
+    });
+  };
+
   useEffect(() => {
     fetchKurkiData();
   }, []);
   if (!kurkiData) return;
   return (
-    <div className="w-[90%] mx-auto my-10">
+    <div className="w-full mx-auto my-10">
       <form
         onSubmit={handleSubmit}
         className="flex flex-wrap gap-4 justify-self-auto mx-auto"
@@ -108,35 +132,35 @@ const KurkiEntry = () => {
         ))}
         <button
           type="submit"
-          className="bg-[#7b5926] text-white px-4 py-2 rounded-md w-48"
+          className="bg-yellow-500 text-white px-4 py-2 rounded-md w-48"
         >
           Submit
         </button>
       </form>
       <div className="mt-8 overflow-x-auto">
-        <table className=" w-full border border-collapse">
+        <table className=" w-full border-2 border-black border-collapse">
           <thead>
-            <tr className="bg-gray-200">
-              <th className="border p-2">Fir Number</th>
-              <th className="border p-2">Fir Year</th>
-              <th className="border p-2">Mud Number</th>
-              <th className="border p-2">Gd Number</th>
-              <th className="border p-2">Gd Date</th>
-              <th className="border p-2">Io Name</th>
-              <th className="border p-2">Dakhil KarneWala</th>
-              <th className="border p-2">Banam</th>
-              <th className="border p-2">Case Property</th>
-              <th className="border p-2">Under Section</th>
-              <th className="border p-2">Act Type</th>
-              <th className="border p-2">Description</th>
-              <th className="border p-2">Place</th>
-              <th className="border p-2">Court</th>
-              <th className="border p-2">Status</th>
+            <tr className="bg-yellow-500 text-black">
+              <th className="border border-black p-2">Fir Number</th>
+              <th className="border border-black p-2">Fir Year</th>
+              <th className="border border-black p-2">Mud Number</th>
+              <th className="border border-black p-2">Gd Number</th>
+              <th className="border border-black p-2">Gd Date</th>
+              <th className="border border-black p-2">Io Name</th>
+              <th className="border border-black p-2">Dakhil KarneWala</th>
+              <th className="border border-black p-2">Banam</th>
+              <th className="border border-black p-2">Case Property</th>
+              <th className="border border-black p-2">Under Section</th>
+              <th className="border border-black p-2">Act Type</th>
+              <th className="border border-black p-2">Description</th>
+              <th className="border border-black p-2">Place</th>
+              <th className="border border-black p-2">Court</th>
+              <th className="border border-black p-2">Status</th>
             </tr>
           </thead>
           <tbody>
-            {kurkiData?.kurki?.length > 0 ? (
-              kurkiData.kurki.map((entry, index) => (
+            {paginatedData?.length > 0 ? (
+              paginatedData.map((entry, index) => (
                 <tr key={index} className="border">
                   <td className="border p-2">{entry.firNumber}</td>
                   <td className="border p-2">{entry.firYear}</td>
@@ -164,6 +188,29 @@ const KurkiEntry = () => {
             )}
           </tbody>
         </table>
+      </div>
+      <div className="flex justify-center items-center gap-5">
+        <button
+          onClick={() => {
+            handlePageChange("prev");
+          }}
+          disabled={currentPage === 1}
+          className="px-4 py-2 bg-gray-300 rounded disabled:opacity-50"
+        >
+          Prev
+        </button>
+        <span>
+          Page {currentPage} of {totalPages}
+        </span>
+        <button
+          onClick={() => {
+            handlePageChange("next");
+          }}
+          disabled={currentPage === totalPages}
+          className="px-4 py-2 bg-gray-300 rounded disabled:opacity-50"
+        >
+          Next
+        </button>
       </div>
     </div>
   );

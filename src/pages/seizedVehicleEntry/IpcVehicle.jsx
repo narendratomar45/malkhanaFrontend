@@ -32,7 +32,10 @@ const IpcVehicle = () => {
 
   const fetchIpcdata = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/api/ipcVehicle");
+      const token = localStorage.getItem("malkhanaToken");
+      const response = await axios.get("http://localhost:8080/api/ipcVehicle", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       dispatch(addIpc(response.data));
     } catch (error) {
       console.log("ERROR", error);
@@ -65,7 +68,7 @@ const IpcVehicle = () => {
   };
 
   return (
-    <div className="w-[90%] mx-auto my-10">
+    <div className="w-full mx-auto my-10">
       <h2 className="text-xl font-semibold text-gray-700 mb-4">
         IPC Vehicle Form
       </h2>
@@ -112,7 +115,7 @@ const IpcVehicle = () => {
         ))}
         <button
           type="submit"
-          className="bg-[#7b5926] text-white px-4 py-2 rounded-md w-48"
+          className="bg-yellow-500 text-white px-4 py-2 rounded-md w-48"
         >
           Submit
         </button>
@@ -120,10 +123,13 @@ const IpcVehicle = () => {
 
       <div className="mt-8 overflow-x-auto">
         <table className="w-full border border-black shadow-lg rounded-lg bg-white">
-          <thead className="bg-blue-500 text-white">
+          <thead className="bg-yellow-500 text-black">
             <tr>
               {Object.keys(formData).map((record, index) => (
-                <th key={index} className="border border-black p-2 text-left capitalize">
+                <th
+                  key={index}
+                  className="border border-black p-2 text-left capitalize"
+                >
                   {record.replace(/([A-Z])/g, " $1").trim()}
                 </th>
               ))}

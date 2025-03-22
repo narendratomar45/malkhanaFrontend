@@ -31,8 +31,10 @@ const SeizureVehicle = () => {
 
   const fetchSeizureVehicleData = async () => {
     try {
+      const token = localStorage.getItem("malkhanaToken");
       const response = await axios.get(
-        "http://localhost:8080/api/seizureVehicle"
+        "http://localhost:8080/api/seizureVehicle",
+        { headers: { Authorization: `Bearer ${token}` } }
       );
       dispatch(addSeizure(response.data));
     } catch (error) {
@@ -68,7 +70,7 @@ const SeizureVehicle = () => {
     return <div className="text-center text-xl">Loading...</div>;
 
   return (
-    <div className="w-[90%] mx-auto my-10">
+    <div className="w-full mx-auto my-10">
       <form onSubmit={handleSubmit} className="flex flex-wrap gap-4 ">
         {Object.keys(formData).map((key) => (
           <div key={key}>
@@ -109,7 +111,7 @@ const SeizureVehicle = () => {
         ))}
         <button
           type="submit"
-          className="bg-[#7b5926] text-white px-4 py-2 rounded-md w-48"
+          className="bg-indigo-500 text-white px-4 py-2 rounded-md w-48"
         >
           Submit
         </button>
@@ -117,8 +119,8 @@ const SeizureVehicle = () => {
 
       <div className="mt-6 overflow-x-auto">
         <table className="w-full border border-black shadow-lg rounded-lg bg-white">
-          <thead className="bg-blue-500 text-white">
-            <tr className=" bg-blue-600">
+          <thead className="bg-indigo-500 text-black">
+            <tr>
               {Object.keys(formData).map((record, index) => (
                 <th
                   key={index}

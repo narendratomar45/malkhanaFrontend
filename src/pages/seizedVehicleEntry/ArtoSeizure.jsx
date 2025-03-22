@@ -27,7 +27,10 @@ const ArtoSeizure = () => {
   }, []);
   const fetchRecords = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/api/arto");
+      const token = localStorage.getItem("malkhanaToken");
+      const response = await axios.get("http://localhost:8080/api/arto", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       console.log("RESPONSE", response);
       dispatch(addArto(response.data));
     } catch (error) {
@@ -68,7 +71,7 @@ const ArtoSeizure = () => {
   };
   if (!artoData) return <p>Loading...</p>;
   return (
-    <div className="w-[90%] mx-auto my-10 overflow-hidden">
+    <div className="w-full mx-auto my-10 overflow-hidden">
       <h2 className="text-xl font-semibold text-gray-700 mb-4">
         Arto Seizure Form
       </h2>
@@ -112,7 +115,7 @@ const ArtoSeizure = () => {
         ))}
         <button
           type="submit"
-          className="bg-[#7b5926] text-white px-4 py-2 rounded-md w-48"
+          className="bg-green-500 text-white px-4 py-2 rounded-md w-48"
         >
           Submit
         </button>
@@ -122,10 +125,13 @@ const ArtoSeizure = () => {
 
       <div className="mt-8 overflow-x-auto">
         <table className="w-full border border-black shadow-lg rounded-lg bg-white">
-          <thead className="bg-blue-500 text-white">
+          <thead className="bg-green-500 text-black">
             <tr>
               {Object.keys(formData).map((key) => (
-                <th key={key} className="border border-black p-2 text-left capitalize">
+                <th
+                  key={key}
+                  className="border border-black p-2 text-left capitalize"
+                >
                   {key}
                 </th>
               ))}

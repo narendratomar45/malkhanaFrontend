@@ -8,7 +8,7 @@ const MalkhanaNav = () => {
   return (
     <div className="w-full">
       {malkhanaEntryLocation && (
-        <nav className="flex justify-center gap-5 p-4 bg-gray-300 shadow-md rounded-lg">
+        <nav className="flex flex-wrap justify-center gap-5 p-4 bg-gray-300 shadow-md rounded-lg">
           <Link
             to={"/malkhana/malkhanaEntry"}
             className="px-4 py-2 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 transition"

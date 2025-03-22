@@ -57,15 +57,15 @@ const MalkhanaMovement = () => {
   };
 
   return (
-    <div className="container mx-auto p-4">
+    <div className=" mx-auto p-4">
       <h2 className="text-xl font-bold mb-4">Malkhana Out Movement</h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-4 flex flex-wrap gap-3">
         <select
           name="entryType"
           value={formData.entryType}
           onChange={handleChange}
           required
-          className="border p-2 w-full"
+          className="border p-2 w-[250px] rounded"
         >
           <option value="">Select Entry Type</option>
           {["Malkhana_Entry", "FSL_Entry", "Kurki_Entry", "Other_Entry"].map(
@@ -83,7 +83,7 @@ const MalkhanaMovement = () => {
           value={formData.firNumber}
           onChange={handleChange}
           required
-          className="border p-2 w-full"
+          className="border p-2 w-[250px] rounded"
         />
         <input
           type="text"
@@ -92,7 +92,7 @@ const MalkhanaMovement = () => {
           value={formData.mudNumber}
           onChange={handleChange}
           required
-          className="border p-2 w-full"
+          className="border p-2 w-[250px] rounded"
         />
         <input
           type="text"
@@ -101,7 +101,7 @@ const MalkhanaMovement = () => {
           value={formData.takenOutBy}
           onChange={handleChange}
           required
-          className="border p-2 w-full"
+          className="border p-2 w-[250px] rounded"
         />
         <input
           type="text"
@@ -110,7 +110,7 @@ const MalkhanaMovement = () => {
           value={formData.description}
           onChange={handleChange}
           required
-          className="border p-2 w-full"
+          className="border p-2 w-[250px] rounded"
         />
         <input
           type="text"
@@ -119,9 +119,12 @@ const MalkhanaMovement = () => {
           value={formData.recievedBy}
           onChange={handleChange}
           required
-          className="border p-2 w-full"
+          className="border p-2 w-[250px] rounded"
         />
-        <button type="submit" className="bg-blue-500 text-white p-2 w-full">
+        <button
+          type="submit"
+          className="bg-blue-500 text-white p-2 w-[200px] rounded font-bold"
+        >
           Submit
         </button>
       </form>

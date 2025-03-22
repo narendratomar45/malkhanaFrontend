@@ -88,7 +88,7 @@ const UnclaimedEntry = () => {
   }, []);
 
   return (
-    <div className="w-[90%] mx-auto my-10">
+    <div className="w-full mx-auto my-10">
       <form
         onSubmit={handleSubmit}
         className="flex flex-wrap gap-4 justify-self-auto mx-auto"
@@ -129,7 +129,7 @@ const UnclaimedEntry = () => {
         ))}
         <button
           type="submit"
-          className="bg-[#7b5926] text-white px-4 py-2 rounded-md w-48"
+          className="bg-purple-500 text-white px-4 py-2 rounded-md w-48"
         >
           Submit
         </button>

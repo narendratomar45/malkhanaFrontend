@@ -20,14 +20,14 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    const response = await axios.post(
-      "http://localhost:8080/auth/login",
-      { email: formData.email, password: formData.password },
-      { withCredentials: true }
-    );
+    const response = await axios.post("http://localhost:8080/auth/login", {
+      email: formData.email,
+      password: formData.password,
+    });
+
+    localStorage.setItem("malkhanaToken", response.data.token);
     dispath(addUser(response.data));
-    navigate("/body");
-    console.log("LOGINDATA", response.data);
+    navigate("/");
     setFormData({ email: "", password: "" });
   };
 
@@ -69,7 +69,10 @@ const Login = () => {
       <div className="text-center mt-4 text-gray-600">
         <p>
           Don't have an account?{" "}
-          <Link to={"/"} className="text-blue-600 font-bold hover:underline">
+          <Link
+            to={"/signup"}
+            className="text-blue-600 font-bold hover:underline"
+          >
             Register Here
           </Link>
         </p>

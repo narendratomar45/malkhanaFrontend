@@ -12,6 +12,7 @@ import mvActReducer from "./seizedSlice/mvActSlice.js";
 import seizureSliceReducer from "./seizedSlice/seizureSlice.js";
 import unclaimedVehicleReducer from "./seizedSlice/unclaimedVehicleSlice.js";
 import importDataReducer from "./importDataSlice.js";
+import summonEntryReducer from "./summonEntrySlice.js";
 const appStore = configureStore({
   reducer: {
     user: userReducer,
@@ -27,6 +28,7 @@ const appStore = configureStore({
     seizureVehicle: seizureSliceReducer,
     unclaimedVehicle: unclaimedVehicleReducer,
     importData: importDataReducer,
+    summonEntry: summonEntryReducer,
   },
 });
 export default appStore;

@@ -27,8 +27,10 @@ const UnclaimedVehicle = () => {
 
   const fetchUnclaimedVehicleData = async () => {
     try {
+      const token = localStorage.getItem("malkhanaToken");
       const response = await axios.get(
-        "http://localhost:8080/api/unclaimedVehicle"
+        "http://localhost:8080/api/unclaimedVehicle",
+        { headers: { Authorization: `Bearer ${token}` } }
       );
       dispatch(addUnclaimVehicle(response.data));
     } catch (error) {
@@ -70,7 +72,7 @@ const UnclaimedVehicle = () => {
     return <div className="text-center mt-10 text-gray-500">Loading...</div>;
 
   return (
-    <div className="w-[90%] mx-auto my-10">
+    <div className="w-full mx-auto my-10">
       <form
         onSubmit={handleSubmit}
         className="flex flex-wrap gap-4 justify-self-auto mx-auto"
@@ -114,7 +116,7 @@ const UnclaimedVehicle = () => {
         ))}
         <button
           type="submit"
-          className="bg-[#7b5926] text-white px-4 py-2 rounded-md w-48"
+          className="bg-purple-500 text-white px-4 py-2 rounded-md w-48"
         >
           Submit
         </button>
@@ -124,9 +126,9 @@ const UnclaimedVehicle = () => {
       <div className="mt-8 overflow-x-auto">
         <table className="w-full border-collapse border border-gray-200 shadow-md bg-white">
           <thead>
-            <tr className="bg-blue-600 text-white">
+            <tr className="bg-purple-500 text-black">
               {Object.keys(formData).map((key) => (
-                <th key={key} className="p-3 border border-black capitalize border-black">
+                <th key={key} className="p-3 border border-black capitaliz">
                   {key.replace(/([A-Z])/g, " $1")}
                 </th>
               ))}
@@ -172,7 +174,6 @@ const UnclaimedVehicle = () => {
           </tbody>
         </table>
       </div>
-
     </div>
   );
 };
